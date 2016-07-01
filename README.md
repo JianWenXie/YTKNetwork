@@ -100,17 +100,17 @@ UIL 中的概念(详见4.2)
 YTKNewWork 网络请求库中最核心的两步：请求过程处理，以及请求到数据时的处理
 
 图3.1    
-![](/picx/request_start.png)    
+![](/pics/request_start.png)    
 上图为YTKNetwork 网络开始请求过程流程图：    
 下图为YTKNetWork 处理返回结果流程图：    
 图3.2    
-![](/picx/new.png)
+![](/pics/new.png)
 
 
 ### 4. 详细设计
 
 #### 4.1类关系UML
-![](/picx/iOS网络请求库UML.png)    
+![](/pics/iOS网络请求库UML.png)    
 
 #### 4.2  核心类功能介绍
 
