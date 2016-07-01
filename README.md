@@ -225,7 +225,7 @@ YTKNewWork 网络请求库中最核心的两步：请求过程处理，以及请
 
 主要成员变量：    
 
-1、ignoreCache ：BOOL 类型，默认为不忽略，
+1、ignoreCache，BOOL， 返回是否忽略缓存，如返回YES,则直接忽略缓存。
 
 主要方法:  
 1、- (id)cacheJson，该方法返回当前缓存的对象；    
