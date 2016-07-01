@@ -116,15 +116,15 @@ YTKNewWork 网络请求库中最核心的两步：请求过程处理，以及请
 
 目录：    
 
-[1、YTKBaseRequest]()    
-[2、YTKRequest]()    
-[3、YTKNetworkAgent]()    
-[4、YTKNetworkConfig]()    
-[5、YTKNetworkPrivate]()    
-[6、YTKBatchRequest]()    
-[7、YTKBatchRequestAgent]()    
-[8、YTKChainRequest]()    
-[9、YTKChainRequestAgent]()
+[1、YTKBaseRequest](https://github.com/subvin/YTKNetworkAnalysis#4.2.1 YTKBaseRequest)    
+[2、YTKRequest](https://github.com/subvin/YTKNetworkAnalysis#4.2.2 YTKRequest 类)    
+[3、YTKNetworkAgent](https://github.com/subvin/YTKNetworkAnalysis# 4.2.3 YTKNetworkAgent 类)    
+[4、YTKNetworkConfig](https://github.com/subvin/YTKNetworkAnalysis#4.2.4 YTKNetworkConfig 类)    
+[5、YTKNetworkPrivate](https://github.com/subvin/YTKNetworkAnalysis# 4.2.5 YTKNetworkPrivate 类)    
+[6、YTKBatchRequest](https://github.com/subvin/YTKNetworkAnalysis# 4.2.6 YTKBatchRequest 类)    
+[7、YTKBatchRequestAgent](https://github.com/subvin/YTKNetworkAnalysis#4.2.7 YTKBatchRequestAgent 类)    
+[8、YTKChainRequest](https://github.com/subvin/YTKNetworkAnalysis#4.2.8 YTKChainRequest 类)    
+[9、YTKChainRequestAgent](https://github.com/subvin/YTKNetworkAnalysis#4.2.9 YTKChainRequestAgent 类)
 
 
 ##### 4.2.1 YTKBaseRequest    
