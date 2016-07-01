@@ -18,8 +18,7 @@ YTKNetwork 基于AFNetWorking 封装的一个网络请求库，相比AFNetworkin
  * 支持 block 和 delegate 两种模式的回调方式
  * 支持批量的网络请求发送，并统一设置它们的回调（实现在YTKBatchRequest类中）
  * 支持方便地设置有相互依赖的网络请求的发送，例如：发送请求A，根据请求A的结果，选择性的发送请求B和C，再根据B和C的结果，选择性的发送请求D。（实现在YTKChainRequest类中）
- * 支持网络请求 URL 的 filter，可以统一为网络请求加上一些参数，或者修改一些路径
- * 定义了一套插件机制，可以很方便地为 YTKNetwork 增加功能。猿题库官方现在提供了一个插件，可以在某些网络请求发起时，在界面上显示"正在加载"的 HUD
+ * 支持网络请求 URL 的 filter，可以统一为网络请求加上一些参数，或者修改一些路径    
     
 #### 1.2  YTKNetwork 的基本使用
 ##### Step 1: 如需统一为网络请求接口加上一些参数和设置统一的服务器，需要在入口类的application didFinishLaunchingWithOptions:中进行如下配置：    
@@ -85,16 +84,15 @@ YTKNetwork 基于AFNetWorking 封装的一个网络请求库，相比AFNetworkin
 
 简而言之，对于我们项目中所有的网络请求结果，当数据从AFNetWorking 回调回来时，YTKNetworkAgent先对它进行JSON的合法性的校验和版本号缓存，最后再交给最初创建的YTKRequest对象进行处理。    
     
-#### 2.2
-UIL 中的概念(详见4.2)    
+#### 2.2UIL 中的概念   
 
  *  YTKRequest: 负责网络请求根据版本号和时间进行缓存的网络请求基类，继承于YTKBaseRequest我们的网络请求如果需要缓存功能都需要继承于YTKRequest；    
  * YTKBatchRequest: 批量网络请求基类；    
  * YTKChainRequest: 链式请求基类；    
  * YTKNetworkAgent: 负责管理所有的网络请求；    
  * YTKNetworkConfig: 负责统一为网络请求加上一些参数，或者修改一些路径；   
- * YTKNetworkPrivate: 负责JSON 数据合法性的检查,URL的拼接以及加密等功能。
- 
+ * YTKNetworkPrivate: 负责JSON 数据合法性的检查,URL的拼接以及加密等功能。    
+  (详见4.2) 
 
 ### 3. 流程图
 YTKNewWork 网络请求库中最核心的两步：请求过程处理，以及请求到数据时的处理
@@ -117,14 +115,14 @@ YTKNewWork 网络请求库中最核心的两步：请求过程处理，以及请
 目录：    
 
 [1、YTKBaseRequest](https://github.com/subvin/YTKNetworkAnalysis#4.2.1 YTKBaseRequest)    
-[2、YTKRequest](https://github.com/subvin/YTKNetworkAnalysis#4.2.2 YTKRequest 类)    
-[3、YTKNetworkAgent](https://github.com/subvin/YTKNetworkAnalysis# 4.2.3 YTKNetworkAgent 类)    
-[4、YTKNetworkConfig](https://github.com/subvin/YTKNetworkAnalysis#4.2.4 YTKNetworkConfig 类)    
-[5、YTKNetworkPrivate](https://github.com/subvin/YTKNetworkAnalysis# 4.2.5 YTKNetworkPrivate 类)    
-[6、YTKBatchRequest](https://github.com/subvin/YTKNetworkAnalysis# 4.2.6 YTKBatchRequest 类)    
-[7、YTKBatchRequestAgent](https://github.com/subvin/YTKNetworkAnalysis#4.2.7 YTKBatchRequestAgent 类)    
-[8、YTKChainRequest](https://github.com/subvin/YTKNetworkAnalysis#4.2.8 YTKChainRequest 类)    
-[9、YTKChainRequestAgent](https://github.com/subvin/YTKNetworkAnalysis#4.2.9 YTKChainRequestAgent 类)
+[2、YTKRequest](https://github.com/subvin/YTKNetworkAnalysis#4.2.2 YTKRequest )    
+[3、YTKNetworkAgent](https://github.com/subvin/YTKNetworkAnalysis# 4.2.3 YTKNetworkAgent )    
+[4、YTKNetworkConfig](https://github.com/subvin/YTKNetworkAnalysis#4.2.4 YTKNetworkConfig )    
+[5、YTKNetworkPrivate](https://github.com/subvin/YTKNetworkAnalysis# 4.2.5 YTKNetworkPrivate )    
+[6、YTKBatchRequest](https://github.com/subvin/YTKNetworkAnalysis# 4.2.6 YTKBatchRequest )    
+[7、YTKBatchRequestAgent](https://github.com/subvin/YTKNetworkAnalysis#4.2.7 YTKBatchRequestAgent )    
+[8、YTKChainRequest](https://github.com/subvin/YTKNetworkAnalysis#4.2.8 YTKChainRequest )    
+[9、YTKChainRequestAgent](https://github.com/subvin/YTKNetworkAnalysis#4.2.9 YTKChainRequestAgent )
 
 
 ##### 4.2.1 YTKBaseRequest    
@@ -206,7 +204,7 @@ YTKNewWork 网络请求库中最核心的两步：请求过程处理，以及请
 4、failureCompletionBlock：（YTKRequestCompletionBlock）请求失败的回调block;    
 5、requestAccessories：（NSMutableArray *）YTKbaseRequest附属的请求(基本的请求用不到，详细使用见YTKChainRequest,和YTKBatchRequest)    
 
-主要方法（函数）：    
+主要方法：    
 1、- (NSString *)requestUrl; 请求路径（子类实现）,若不希望使用统一服务器地址，则在此方法内输入完整的URL    
 2、- (NSString *)cdnUrl，返回CDN服务器地址（如果有）;    
 3、- (NSString *)baseUrl，服务器接口地址，如果统一设置了服务器地址，则统一设置的会被该baseURL返回的接口覆盖掉；    
@@ -221,7 +219,7 @@ YTKNewWork 网络请求库中最核心的两步：请求过程处理，以及请
 11、- (void)startWithCompletionBlockWithSuccess:(YTKRequestCompletionBlock)success failure:(YTKRequestCompletionBlock)failure 请求开始并设置成功和失败的回调；    
 
 
-##### 4.2.2 YTKRequest 类
+##### 4.2.2 YTKRequest 
 
 功能：继承了YTKBaseRequest 的所有功能，此外增加了对缓存的处理，是YTK所有增加缓存功能请求的基类，我们项目中需要缓存的请求类都需要直接或间接继承与它。    
 
@@ -229,7 +227,7 @@ YTKNewWork 网络请求库中最核心的两步：请求过程处理，以及请
 
 1、ignoreCache ：BOOL 类型，默认为不忽略，
 
-主要函数：（方法）  
+主要方法:  
 1、- (id)cacheJson，该方法返回当前缓存的对象；    
 2、- (BOOL)isDataFromCache，是否当前的数据从缓存获得；    
 3、- (BOOL)isCacheVersionExpired， 返回是否当前缓存需要更新；    
@@ -245,14 +243,14 @@ YTKNewWork 网络请求库中最核心的两步：请求过程处理，以及请
         	}
     	}
 	}
+6、- (NSInteger)cacheTimeInSeconds，设置缓存的时限，需要添加缓存则返回一个大于0 的秒数，默认返回－1（不缓存）。    
 
 
-
-##### 4.2.3 YTKNetworkAgent 类    
+##### 4.2.3 YTKNetworkAgent     
 
 功能：普通请求的管理类    
 
-主要函数（函数）:    
+主要方法:    
 
 1、+ (YTKNetworkAgent *)sharedInstance 获取、创建单例，初始化一些引用的对象；    
 2、- (void)addRequest:(YTKBaseRequest *)request， 该方法根据Request的细节结合AFHTTPRequestOperation进行请求；    
@@ -279,7 +277,7 @@ YTKNewWork 网络请求库中最核心的两步：请求过程处理，以及请
 
 
 
-##### 4.2.4 YTKNetworkConfig 类
+##### 4.2.4 YTKNetworkConfig 
 
 功能：统一为网络请求设置和修改一些参数，或修改一些路径。    
 
@@ -309,7 +307,7 @@ YTKNewWork 网络请求库中最核心的两步：请求过程处理，以及请
 2、- (void)addCacheDirPathFilter:(id <YTKCacheDirPathFilterProtocol>)filter，通过该方法统一修改缓存文件夹路径。
 
 
-##### 4.2.5 YTKNetworkPrivate 类
+##### 4.2.5 YTKNetworkPrivate 
 
 功能：该类为一工具类，提供一些参数加密和JSON数据检查的接口。
 
@@ -368,7 +366,7 @@ YTKNewWork 网络请求库中最核心的两步：请求过程处理，以及请
 4、+ (NSString *)md5StringFromString:(NSString *)string 该功能为string 做 MD5 加密;    
 
 
-#### 4.2.6 YTKBatchRequest 类
+#### 4.2.6 YTKBatchRequest 
 
 功能介绍:批量的网络请求发送，并统一设置它们的回调。    
     
@@ -441,7 +439,7 @@ YTKNewWork 网络请求库中最核心的两步：请求过程处理，以及请
     	[[YTKBatchRequestAgent sharedInstance] removeBatchRequest:self];
 	}
 
-##### 4.2.7 YTKBatchRequestAgent 类
+##### 4.2.7 YTKBatchRequestAgent 
 
 功能简介：继承于NSObject,管理YTKBatchRequest 的添加与移除操作。
 
@@ -464,7 +462,7 @@ YTKNewWork 网络请求库中最核心的两步：请求过程处理，以及请
 
 
 
-##### 4.2.8 YTKChainRequest 类    
+##### 4.2.8 YTKChainRequest     
 
 功能简介：YTKChainRequest 继承直接于NSObject，负责处理它本身所添加的YTKBaseRequest的顺序请求操作。    
 
@@ -498,7 +496,7 @@ YTKNewWork 网络请求库中最核心的两步：请求过程处理，以及请
 4、- (BOOL)startNextRequest ,请求开始或者开始下一个请求的方法，衔接两个相邻的请求。    
 
 
-##### 4.2.9 YTKChainRequestAgent 类
+##### 4.2.9 YTKChainRequestAgent 
 
 同YTKBatchRequestAgent 基本一样，在此不一一列举。
 
