@@ -34,8 +34,8 @@ YTKNetwork 基于AFNetWorking 封装的一个网络请求库，相比AFNetworkin
     	return YES;
 	}
 
-##### Step 2:构建请求对象继承于重写父类，并重写父类的方法填写参数。
-例：修改请求接口需要重写父类的requestUrl 方法   
+##### Step 2:构建请求对象继承于父类(YTKBaseRequest)，重写父类的方法,填写参数。
+例：修改请求路径需要重写父类的requestUrl 方法   
 	
 	- (NSString *)requestUrl {
     		return @"/adidata/hotcity.html";
@@ -61,7 +61,7 @@ YTKNetwork 基于AFNetWorking 封装的一个网络请求库，相比AFNetworkin
 	}
 
 ##### step 3: 开始请求
-例:    
+例:TestGETRequest：YTKBaseRequest    
 
 	TestGETRequest *test = [[TestGETRequest alloc] init];
     [test startWithCompletionBlockWithSuccess:^(__kindof YTKBaseRequest *request) {
