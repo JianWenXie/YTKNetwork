@@ -7,22 +7,22 @@
 
 ### 1. 功能介绍   
 
-#### 1.1 YTKNetwork
-YTKNetwork 基于 AFNetWorking 封装的一个网络请求库，相比AFNetworking，YTKNetwork 提供了以下更高级的功能:    
+#### 1.1 `YTKNetwork`
+`YTKNetwork` 基于 `AFNetWorking` 封装的一个网络请求库，相比 `AFNetworking`，`YTKNetwork` 提供了以下更高级的功能:    
 
  * 支持按时间缓存网络请求内容
  * 支持按版本号缓存网络请求内容
- * 支持统一设置服务器和 CDN 的地址
- * 支持检查返回 JSON 内容的合法性
+ * 支持统一设置服务器和 `CDN` 的地址
+ * 支持检查返回 `JSON` 内容的合法性
  * 支持文件的断点续传
- * 支持 block 和 delegate 两种模式的回调方式
- * 支持批量的网络请求发送，并统一设置它们的回调（实现在YTKBatchRequest类中）
- * 支持方便地设置有相互依赖的网络请求的发送，例如：发送请求A，根据请求A的结果，选择性的发送请求B和C，再根据B和C的结果，选择性的发送请求D。（实现在YTKChainRequest类中）
- * 支持网络请求 URL 的 filter，可以统一为网络请求加上一些参数，或者修改一些路径   
- * 定义了一套插件机制，可以很方便地为 YTKNetwork 增加功能。猿题库官方现在提供了一个插件，可以在某些网络请求发起时，在界面上显示“正在加载”的 HUD
-    
-#### 1.2  YTKNetwork 的基本使用
-##### Step 1: 如需统一为网络请求接口加上一些参数和设置统一的服务器，需要在入口类的application didFinishLaunchingWithOptions:中进行如下配置：    
+ * 支持 `block` 和 `delegate` 两种模式的回调方式
+ * 支持批量的网络请求发送，并统一设置它们的回调（实现在 `YTKBatchRequest` 类中）
+ * 支持方便地设置有相互依赖的网络请求的发送，例如：发送请求A，根据请求A的结果，选择性的发送请求B和C，再根据B和C的结果，选择性的发送请求D。（实现在 `YTKChainRequest` 类中）
+ * 支持网络请求 `URL` 的 `filter`，可以统一为网络请求加上一些参数，或者修改一些路径   
+ * 定义了一套插件机制，可以很方便地为 `YTKNetwork` 增加功能。猿题库官方现在提供了一个插件，可以在某些网络请求发起时，在界面上显示“正在加载”的 `HUD`
+
+#### 1.2  `YTKNetwork` 的基本使用
+##### Step 1: 如需统一为网络请求接口加上一些参数和设置统一的服务器，需要在入口类的`application didFinishLaunchingWithOptions`:中进行如下配置：    
 
 	- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     	NSString *appVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
@@ -37,13 +37,13 @@ YTKNetwork 基于 AFNetWorking 封装的一个网络请求库，相比AFNetworki
 	}
 
 
-设置好之后，所有的网络请求都会默认使用 YTKNetworkConfig 中 baseUrl 参数指定的地址。
-大部分企业应用都需要对一些静态资源（例如图片、js、css）使用 CDN。YTKNetworkConfig 的 cdnUrl 参数用于统一设置这一部分网络请求的地址。
-当我们需要切换服务器地址时，只需要修改 YTKNetworkConfig 中的 baseUrl 和 cdnUrl 参数即可。
+设置好之后，所有的网络请求都会默认使用 `YTKNetworkConfig` 中 `baseUrl` 参数指定的地址。
+大部分企业应用都需要对一些静态资源（例如图片、js、css）使用 `CDN`。`YTKNetworkConfig` 的 `cdnUrl` 参数用于统一设置这一部分网络请求的地址。
+当我们需要切换服务器地址时，只需要修改 `YTKNetworkConfig` 中的 `baseUrl` 和 `cdnUrl` 参数即可。
 
-##### Step 2:构建请求对象继承于父类(YTKRequest)，重写父类的方法,填写参数。
-例：修改请求路径需要重写父类的 requestUrl 方法   
-	
+##### Step 2:构建请求对象继承于父类(`YTKRequest`)，重写父类的方法,填写参数。
+例：修改请求路径需要重写父类的 `requestUrl` 方法   
+
 	- (NSString *)requestUrl {
     		return @"/adidata/hotcity.html";
 	}
@@ -68,7 +68,7 @@ YTKNetwork 基于 AFNetWorking 封装的一个网络请求库，相比AFNetworki
 	}
 
 ##### step 3: 开始请求
-例:TestGETRequest：YTKRequest    
+例:`TestGETRequest：YTKRequest`    
 
 	TestGETRequest *test = [[TestGETRequest alloc] init];
     [test startWithCompletionBlockWithSuccess:^(__kindof YTKBaseRequest *request) {
@@ -81,16 +81,16 @@ YTKNetwork 基于 AFNetWorking 封装的一个网络请求库，相比AFNetworki
 
  * [基础教程](https://github.com/yuantiku/YTKNetwork/blob/master/Docs/BasicGuide_cn.md)
  * [高级教程](https://github.com/yuantiku/YTKNetwork/blob/master/Docs/ProGuide_cn.md)
-  
+
 
 ### 2. 总体设计(图文)   
 
 #### 2.1总体结构图
 ![](/pics/flowchart.png )
-上面是UIL的总体设计图，整个库分为 YTKRequest，YTKNetworkAgent,YTKNetworkConfig 和 YTKNetworkPrivate 四个模块。    
+上面是UIL的总体设计图，整个库分为 `YTKRequest`，`YTKNetworkAgent`,`YTKNetworkConfig` 和 `YTKNetworkPrivate` 四个模块。    
 
-简而言之，对于我们项目中所有的网络请求结果，当数据从 AFNetWorking 回调回来时，YTKNetworkAgent 先对它进行 JSON 的合法性的校验和版本号缓存，最后再交给最初创建的 YTKRequest 对象进行处理。    
-    
+简而言之，对于我们项目中所有的网络请求结果，当数据从 `AFNetWorking` 回调回来时，`YTKNetworkAgent` 先对它进行 `JSON` 的合法性的校验和版本号缓存，最后再交给最初创建的 `YTKRequest` 对象进行处理。    
+
 #### 2.2UIL 中的概念   
 
  *  YTKRequest: 负责网络请求根据版本号和时间进行缓存的网络请求基类，继承于 YTKBaseRequest 我们的网络请求如果需要缓存功能都需要继承于YTKRequest；    
@@ -99,7 +99,7 @@ YTKNetwork 基于 AFNetWorking 封装的一个网络请求库，相比AFNetworki
  * YTKNetworkAgent: 负责管理所有的网络请求；    
  * YTKNetworkConfig: 负责统一为网络请求加上一些参数，或者修改一些路径；   
  * YTKNetworkPrivate: 负责 JSON 数据合法性的检查,URL 的拼接以及加密等功能。    
-  (详见4.2) 
+  (详见4.2)
 
 ### 3. 流程图
 YTKNewWork 网络请求库中最核心的两步：请求过程处理，以及请求到数据时的处理
@@ -173,7 +173,7 @@ YTKNewWork 网络请求库中最核心的两步：请求过程处理，以及请
 ```
 
 
-##### 4.2.2 YTKBaseRequest 
+##### 4.2.2 YTKBaseRequest
 
 功能：所有请求类的基类，持有 NSURLSessionTask 实例，responseData 等重要数据，提供了一些需要子类实现的与网络请求相关的放阿飞，处理回调的 block 和代理，命令 YTKNetworkAgent 发起网络请求。    
 
@@ -298,7 +298,7 @@ typedef void(^YTKRequestCompletionBlock)(__kindof YTKBaseRequest *request);
 ///
 ///  @discussion If `resumableDownloadPath` and DownloadTask is using, this value will
 ///              be the path to which file is successfully saved (NSURL), or nil if request failed.
-// 
+//
 @property (nonatomic, strong, readonly, nullable) id responseObject;
 
 // 如果设置响应序列化方式是 YTKResponseSerializerTypeJSON，这个就是响应结果序列化后的对象
@@ -357,7 +357,7 @@ typedef void(^YTKRequestCompletionBlock)(__kindof YTKBaseRequest *request);
 // 清除请求回调 block
 - (void)clearCompletionBlock;
 
-// 添加遵循 YTKRequestAccessory 协议的请求对象，相关的 requestAccessories
+// 添加遵循 `YTKRequestAccessory` 协议的请求对象，相关的 `requestAccessories`
 - (void)addAccessory:(id<YTKRequestAccessory>)accessory;
 
 #pragma mark - Request Action
@@ -367,7 +367,7 @@ typedef void(^YTKRequestCompletionBlock)(__kindof YTKBaseRequest *request);
 // 从请求队列中移除 self 网络请求，并且取消请求
 - (void)stop;
 
-// 使用带有成功失败 blcok 回调的方法开始请求(储存 block，调用 start)
+// 使用带有成功失败 `block` 回调的方法开始请求(储存 block，调用 start)
 - (void)startWithCompletionBlockWithSuccess:(nullable YTKRequestCompletionBlock)success
                                     failure:(nullable YTKRequestCompletionBlock)failure;
 
@@ -439,103 +439,103 @@ NS_ASSUME_NONNULL_END
 ```   
 
 
-##### 4.2.3 YTKRequest     
+##### 4.2.3 `YTKRequest`     
 
-功能：YTKBaseRequest 的子类。负责缓存的处理，请求前查询缓存；请求后写入缓存。
+功能：`YTKBaseRequest` 的子类。负责缓存的处理，请求前查询缓存；请求后写入缓存。
 
 ```objectivec
 @interface YTKRequest : YTKBaseRequest
- 
+
 //表示当前请求，是否忽略本地缓存 responseData
 @property (nonatomic) BOOL ignoreCache;
- 
+
 /// 返回当前缓存的对象
 - (id)cacheJson;
- 
+
 /// 是否当前的数据从缓存获得
 - (BOOL)isDataFromCache;
- 
+
 /// 返回是否当前缓存需要更新【缓存是否超时】
 - (BOOL)isCacheVersionExpired;
- 
+
 /// 强制更新缓存【不使用缓存数据】
 - (void)startWithoutCache;
- 
+
 /// 手动将其他请求的 JsonResponse 写入该请求的缓存
 - (void)saveJsonResponseToCacheFile:(id)jsonResponse;
- 
+
 /// 子类重写方法【参数方法】
 - (NSInteger)cacheTimeInSeconds;    //当前请求指定时间内，使用缓存数据
 - (long long)cacheVersion;    //当前请求，指定使用版本号的缓存数据
 - (id)cacheSensitiveData;   
- 
+
 @end
 ```
 
-发现 YTKRequest 主要是对请求数据缓存方面的处理。再看 .m 实现文件：
+发现 `YTKRequest` 主要是对请求数据缓存方面的处理。再看 .m 实现文件：
 
 ```objectivec
 //YTKRequest.m
 - (void)start {
- 
+
     //1. 如果忽略缓存 -> 请求
     if (self.ignoreCache) {
         [self startWithoutCache];
         return;
     }
- 
+
     //2. 如果存在下载未完成的文件 -> 请求
     if (self.resumableDownloadPath) {
         [self startWithoutCache];
         return;
     }
- 
+
     //3. 获取缓存失败 -> 请求
     if (![self loadCacheWithError:nil]) {
         [self startWithoutCache];
         return;
     }
- 
+
     //4. 到这里，说明一定能拿到可用的缓存，可以直接回调了（因为一定能拿到可用的缓存，所以一定是调用成功的 block 和代理）
     _dataFromCache = YES;
- 
+
     dispatch_async(dispatch_get_main_queue(), ^{
- 
+
         //5. 回调之前的操作
         //5.1 缓存处理
         [self requestCompletePreprocessor];
- 
+
         //5.2 用户可以在这里进行真正回调前的操作
         [self requestCompleteFilter];
- 
+
         YTKRequest *strongSelf = self;
- 
+
         //6. 执行回调
         //6.1 请求完成的代理
         [strongSelf.delegate requestFinished:strongSelf];
- 
+
         //6.2 请求成功的 block
         if (strongSelf.successCompletionBlock) {
             strongSelf.successCompletionBlock(strongSelf);
         }
- 
+
         //7. 把成功和失败的 block 都设置为 nil，避免循环引用
         [strongSelf clearCompletionBlock];
     });
 }
 ```
 
-通过 start() 方法可以看出，它做的是请求之前的查询和检查工作。下面是具体实现的过程：
+通过 `start()` 方法可以看出，它做的是请求之前的查询和检查工作。下面是具体实现的过程：
 
-（1）.ignoreCache 属性是用户手动设置的，如果用户强制忽略缓存，则无论是否缓存是否存在，直接发送请求。
+（1）`.ignoreCache` 属性是用户手动设置的，如果用户强制忽略缓存，则无论是否缓存是否存在，直接发送请求。
 
-（2）resumableDownloadPath 是断点下载路径，如果该路径不为空，说明有未完成的下载任务，则直接发送请求继续下载。
+（2）`resumableDownloadPath` 是断点下载路径，如果该路径不为空，说明有未完成的下载任务，则直接发送请求继续下载。
 
-（3）loadCacheWithError：方法验证了加载缓存是否成功的方法（方法如果返回YES，说明可以加载缓存，反正则不可以加载缓存）下面是loadCacheWithError的具体实现：
+（3）`loadCacheWithError`：方法验证了加载缓存是否成功的方法（方法如果返回 `YES`，说明可以加载缓存，反正则不可以加载缓存）下面是 `loadCacheWithError` 的具体实现：
 
 ```objectivec
 - (BOOL)loadCacheWithError:(NSError * _Nullable __autoreleasing *)error {
- 
+
     // 缓存时间小于0，则返回（缓存时间默认为-1，需要用户手动设置，单位是秒）
     if ([self cacheTimeInSeconds] < 0) {
         if (error) {
@@ -543,7 +543,7 @@ NS_ASSUME_NONNULL_END
         }
         return NO;
     }
- 
+
     // 是否有缓存的元数据，如果没有，返回错误（元数据是指数据的数据，在这里描述了缓存数据本身的一些特征：包括版本号，缓存时间，敏感信息等等）
     if (![self loadCacheMetadata]) {
         if (error) {
@@ -551,12 +551,12 @@ NS_ASSUME_NONNULL_END
         }
         return NO;
     }
- 
+
     // 有缓存，再验证是否有效
     if (![self validateCacheWithError:error]) {
         return NO;
     }
- 
+
     // 有缓存，而且有效，再验证是否能取出来
     if (![self loadCacheData]) {
         if (error) {
@@ -568,12 +568,12 @@ NS_ASSUME_NONNULL_END
 }
 ```
 
-上面代码标红的提到缓存的元数据的，.m 也实现类元数据的获取方法：loadCacheMetadata
+上面代码标红的提到缓存的元数据的，`.m` 也实现类元数据的获取方法：`loadCacheMetadata`
 
 ```objectivec
 //YTKRequest.m
 - (BOOL)loadCacheMetadata {
- 
+
     NSString *path = [self cacheMetadataFilePath];
     NSFileManager * fileManager = [NSFileManager defaultManager];
     if ([fileManager fileExistsAtPath:path isDirectory:nil]) {
@@ -588,16 +588,16 @@ NS_ASSUME_NONNULL_END
     }
     return NO;
 }
-cacheMetadata（YTKCacheMetadata） 是当前 reqeust 类用来保存缓存元数据的属性。
-YTKCacheMetadata 类被定义在 YTKRequest.m 文件里面：
- 
+`cacheMetadata`（YTKCacheMetadata） 是当前 `reqeust` 类用来保存缓存元数据的属性。
+`YTKCacheMetadata` 类被定义在 `YTKRequest.m` 文件里面：
+
 //YTKRequest.m
 @interface YTKCacheMetadata : NSObject@property (nonatomic, assign) long long version;
 @property (nonatomic, strong) NSString *sensitiveDataString;
 @property (nonatomic, assign) NSStringEncoding stringEncoding;
 @property (nonatomic, strong) NSDate *creationDate;
 @property (nonatomic, strong) NSString *appVersionString;
- 
+
 @end
 
 //通过归档方式进行元数据的存储
@@ -625,13 +625,13 @@ YTKCacheMetadata 类被定义在 YTKRequest.m 文件里面：
 }
 ```
 
-loadCacheMetadata 方法的目的是将之前被序列化保存的缓存元数据信息反序列化，赋给自身的 cacheMetadata 属性上。
+`loadCacheMetadata` 方法的目的是将之前被序列化保存的缓存元数据信息反序列化，赋给自身的 `cacheMetadata` 属性上。
 
-现在获取了缓存的元数据并赋值给 cacheMetadata 属性上，接下来要元数据的各项信息是否符合要求：使用 validateCacheWithError：方法进行验证。
+现在获取了缓存的元数据并赋值给 `cacheMetadata` 属性上，接下来要元数据的各项信息是否符合要求：使用 `validateCacheWithError`：方法进行验证。
 
 ```objectivec
 - (BOOL)validateCacheWithError:(NSError * _Nullable __autoreleasing *)error {
- 
+
     // 是否大于过期时间
     NSDate *creationDate = self.cacheMetadata.creationDate;
     NSTimeInterval duration = -[creationDate timeIntervalSinceNow];
@@ -641,7 +641,7 @@ loadCacheMetadata 方法的目的是将之前被序列化保存的缓存元数�
         }
         return NO;
     }
- 
+
     // 缓存的版本号是否符合
     long long cacheVersionFileContent = self.cacheMetadata.version;
     if (cacheVersionFileContent != [self cacheVersion]) {
@@ -650,7 +650,7 @@ loadCacheMetadata 方法的目的是将之前被序列化保存的缓存元数�
         }
         return NO;
     }
- 
+
     // 敏感信息是否符合
     NSString *sensitiveDataString = self.cacheMetadata.sensitiveDataString;
     NSString *currentSensitiveDataString = ((NSObject *)[self cacheSensitiveData]).description;
@@ -663,7 +663,7 @@ loadCacheMetadata 方法的目的是将之前被序列化保存的缓存元数�
             return NO;
         }
     }
- 
+
     // app 的版本是否符合
     NSString *appVersionString = self.cacheMetadata.appVersionString;
     NSString *currentAppVersionString = [YTKNetworkUtils appVersionString];
@@ -679,15 +679,15 @@ loadCacheMetadata 方法的目的是将之前被序列化保存的缓存元数�
 }
 ```
 
-如果每一项元数据信息都能通过，再在 loadCacheData 方法里面验证缓存是否能取出：
+如果每一项元数据信息都能通过，再在 `loadCacheData` 方法里面验证缓存是否能取出：
 
 ```objectivec
 - (BOOL)loadCacheData {
- 
+
     NSString *path = [self cacheFilePath];
     NSFileManager *fileManager = [NSFileManager defaultManager];
     NSError *error = nil;
- 
+
     if ([fileManager fileExistsAtPath:path isDirectory:nil]) {
         NSData *data = [NSData dataWithContentsOfFile:path];
         _cacheData = data;
@@ -708,24 +708,24 @@ loadCacheMetadata 方法的目的是将之前被序列化保存的缓存元数�
 }
 ```
 
-如果通过了最终的考验，则说明当前请求对应的缓存是符合各项要求并可以被成功取出，也就是可以直接进行回调了。当确认缓存可以成功取出后，手动设置 dataFromCache 属性为 YES，说明当前的请求结果是来自于缓存，而没有通过网络请求。
+如果通过了最终的考验，则说明当前请求对应的缓存是符合各项要求并可以被成功取出，也就是可以直接进行回调了。当确认缓存可以成功取出后，手动设置 `dataFromCache` 属性为 `YES`，说明当前的请求结果是来自于缓存，而没有通过网络请求。
 
-在这里面还有一个比较重要的方法：requestCompletePreprocessor
+在这里面还有一个比较重要的方法：`requestCompletePreprocessor`
 
 ```objectivec
 //YTKRequest.m：
 - (void)requestCompletePreprocessor {
- 
+
     [super requestCompletePreprocessor];
- 
+
     //是否异步将 responseData 写入缓存（写入缓存的任务放在专门的队列 ytkrequest_cache_writing_queue 进行）
     if (self.writeCacheAsynchronously) {
- 
+
         dispatch_async(ytkrequest_cache_writing_queue(), ^{
             //保存响应数据到缓存
             [self saveResponseDataToCacheFile:[super responseData]];
         });
- 
+
     } else {
         //保存响应数据到缓存
         [self saveResponseDataToCacheFile:[super responseData]];
@@ -735,13 +735,13 @@ loadCacheMetadata 方法的目的是将之前被序列化保存的缓存元数�
 //YTKRequest.m：
 //保存响应数据到缓存
 - (void)saveResponseDataToCacheFile:(NSData *)data {
- 
+
     if ([self cacheTimeInSeconds] > 0 && ![self isDataFromCache]) {
         if (data != nil) {
             @try {
                 // New data will always overwrite old data.
                 [data writeToFile:[self cacheFilePath] atomically:YES];
- 
+
                 YTKCacheMetadata *metadata = [[YTKCacheMetadata alloc] init];
                 metadata.version = [self cacheVersion];
                 metadata.sensitiveDataString = ((NSObject *)[self cacheSensitiveData]).description;
@@ -749,7 +749,7 @@ loadCacheMetadata 方法的目的是将之前被序列化保存的缓存元数�
                 metadata.creationDate = [NSDate date];
                 metadata.appVersionString = [YTKNetworkUtils appVersionString];
                 [NSKeyedArchiver archiveRootObject:metadata toFile:[self cacheMetadataFilePath]];
- 
+
             } @catch (NSException *exception) {
                 YTKLog(@"Save cache failed, reason = %@", exception.reason);
             }
@@ -758,19 +758,19 @@ loadCacheMetadata 方法的目的是将之前被序列化保存的缓存元数�
 }
 ```
 
-我们可以看到, requestCompletePreprocessor 方法的任务是将响应数据保存起来，也就是做缓存。但是，缓存的保存有两个条件，一个是需要 cacheTimeInSeconds 方法返回正整数（缓存时间，单位是秒）；另一个条件就是 isDataFromCache 方法返回 NO 。
+我们可以看到, `requestCompletePreprocessor` 方法的任务是将响应数据保存起来，也就是做缓存。但是，缓存的保存有两个条件，一个是需要 `cacheTimeInSeconds` 方法返回正整数（缓存时间，单位是秒）；另一个条件就是 `isDataFromCache` 方法返回 `NO`。
 
-进一步研究：startWithoutCache
+进一步研究：`startWithoutCache`
 
 这个方法做了哪些？
 
 ```objectivec
 //YTKRequest.m
 - (void)startWithoutCache {
- 
+
     //1. 清除缓存
     [self clearCacheVariables];
- 
+
     //2. 调用父类的发起请求
     [super start];
 }
@@ -780,23 +780,23 @@ loadCacheMetadata 方法的目的是将之前被序列化保存的缓存元数�
 
 //YTKBaseRequest.m:
 - (void)start {
- 
+
     //1. 告诉 Accessories 即将回调了（其实是即将发起请求）
     [self toggleAccessoriesWillStartCallBack];
- 
+
     //2. 令 agent 添加请求并发起请求，在这里并不是组合关系，agent 只是一个单例
     [[YTKNetworkAgent sharedAgent] addRequest:self];
 }
 ```
 
 
-##### 4.2.4 YTKNetworkConfig 
+##### 4.2.4 `YTKNetworkConfig`
 
-功能：被 YTKRequest 和 YTKNetworkAgent 访问。负责所有请求的全局配置，对于 baseUrl 和 CDNUrl 等等。
+功能：被 `YTKRequest` 和 `YTKNetworkAgent` 访问。负责所有请求的全局配置，对于 `baseUrl` 和 `CDNUrl` 等等。
 
-在实际业务中，作为公司的测试需要不断的切换服务器地址，确定数据的正确性，也间接说明 YTKNetworkConfig 的必要性。    
+在实际业务中，作为公司的测试需要不断的切换服务器地址，确定数据的正确性，也间接说明 `YTKNetworkConfig` 的必要性。    
 
-下面是以自己目前公司所用的 YTKNetwork 的 YTKNetworkConfig 的用处：
+下面是以自己目前公司所用的 `YTKNetwork` 的 `YTKNetworkConfig` 的用处：
 
 （1）首先在 AppDelegate 中：- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions 方法配置服务：
 
@@ -805,7 +805,7 @@ loadCacheMetadata 方法的目的是将之前被序列化保存的缓存元数�
 #ifdef DEBUG
     // test
     //[RLPickerViewModel parserAddressJson:nil];
-    
+
     //配置日志
     //[self redirectNSLogToDocumentFolder];
 #endif
@@ -826,13 +826,13 @@ loadCacheMetadata 方法的目的是将之前被序列化保存的缓存元数�
 }
 ```
 
-在 IOAApiManager 实现类方法：
+在 `IOAApiManager` 实现类方法：
 
 ```objectivec
 + (void)configwork {
     YTKNetworkAgent *agent = [YTKNetworkAgent sharedAgent];
     [agent setValue:[NSSet setWithObjects:@"application/json",@"text/json",@"text/javascript",@"text/html",@"text/plain",@"application/x-www-form-urlencodem",nil] forKeyPath:@"_manager.responseSerializer.acceptableContentTypes"];
-    
+
     static ServerType serverType = kSeverTypeRelese;
     YTKNetwor
     kConfig *config = [YTKentworkConfig sharedConfig;
@@ -854,9 +854,9 @@ loadCacheMetadata 方法的目的是将之前被序列化保存的缓存元数�
 }
 ```
 
-我们以后就可以通过 baseUrl 进行不同的地址访问啦。大部分企业可能需要一些静态资源（例如图片，js，css 等）这就使用到了 CDN，YTKNetworkConfig 的cdnUrl参数用于统一设置这一部分网络请求的地址。
+我们以后就可以通过 `baseUrl` 进行不同的地址访问啦。大部分企业可能需要一些静态资源（例如图片，js，css 等）这就使用到了 `CDN`，`YTKNetworkConfig` 的 `cdnUrl` 参数用于统一设置这一部分网络请求的地址。
 
-YTKNetworkConfig 源码也提供了安全策略，url 过滤，缓存路径的过滤等方法如下:
+`YTKNetworkConfig` 源码也提供了安全策略，`url` 过滤，缓存路径的过滤等方法如下:
 
 ```objectivec
 // 使用类方法创建单例对象
@@ -898,26 +898,26 @@ YTKNetworkConfig 源码也提供了安全策略，url 过滤，缓存路径的�
 ```
 
 
-##### 4.2.5 YTKNetworkAgent 
+##### 4.2.5 `YTKNetworkAgent`
 
 功能：真正发起请求的类，负责发起请求，结束请求，并持有一个字典来存储正在执行的请求。
-    
-1、首先从请求开始：YTKNetworkAgent 把当前的请求对象添加到了自己身上并发送请求。  
-  
+
+1、首先从请求开始：`YTKNetworkAgent` 把当前的请求对象添加到了自己身上并发送请求。  
+
 ```objectivec
 //YTKNetworkAgent.m
 - (void)addRequest:(YTKBaseRequest *)request {
- 
+
     //1. 获取 task
     NSParameterAssert(request != nil);
- 
+
     NSError * __autoreleasing requestSerializationError = nil;
- 
+
     //获取用户自定义的 requestURL
     NSURLRequest *customUrlRequest= [request buildCustomUrlRequest];
- 
+
     if (customUrlRequest) {
- 
+
         __block NSURLSessionDataTask *dataTask = nil;
         //如果存在用户自定义 request，则直接走 AFNetworking 的 dataTaskWithRequest:方法
         dataTask = [_manager dataTaskWithRequest:customUrlRequest completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
@@ -925,23 +925,23 @@ YTKNetworkConfig 源码也提供了安全策略，url 过滤，缓存路径的�
             [self handleRequestResult:dataTask responseObject:responseObject error:error];
         }];
         request.requestTask = dataTask;
- 
+
     } else {
- 
+
         //如果用户没有自定义 url，则直接走这里
         request.requestTask = [self sessionTaskForRequest:request error:&requestSerializationError];
- 
+
     }
- 
+
     //序列化失败，则认定为请求失败
     if (requestSerializationError) {
         //请求失败的处理
         [self requestDidFailWithRequest:request error:requestSerializationError];
         return;
     }
- 
+
     NSAssert(request.requestTask != nil, @"requestTask should not be nil");
- 
+
     // 优先级的映射
     // !!Available on iOS 8 +
     if ([request.requestTask respondsToSelector:@selector(priority)]) {
@@ -959,45 +959,45 @@ YTKNetworkConfig 源码也提供了安全策略，url 过滤，缓存路径的�
                 break;
         }
     }
- 
+
     // Retain request
     YTKLog(@"Add request: %@", NSStringFromClass([request class]));
- 
+
     //2. 将request放入保存请求的字典中，taskIdentifier 为 key，request 为值
     [self addRequestToRecord:request];
- 
+
     //3. 开始 task
     [request.requestTask resume];
 }
 ```
 
-这个方法可以看出调用了 AFNetworking 的请求方法，也验证了 YTKNetwork 对 AFNetworking 高度封装。这个方法可以分成三部分：
+这个方法可以看出调用了 `AFNetworking` 的请求方法，也验证了 `YTKNetwork` 对 `AFNetworking` 高度封装。这个方法可以分成三部分：
 
-(1).获取当前请求对应的 task 并赋值给 request 的 requestTask 属性
+(1).获取当前请求对应的 `task` 并赋值给 `request` 的 `requestTask` 属性
 
-(2).将 request 放入专门用来保存请求的字典中，key 为 taskIdentifier
+(2).将 `request` 放入专门用来保存请求的字典中，key 为 `taskIdentifier`
 
-(3).启动 task
+(3).启动 `task`
 
 
-#### 4.2.6 YTKBatchRequest 
+#### 4.2.6 `YTKBatchRequest`
 
 功能介绍:可以发起批量请求，持有一个数组来保存所有的请求类。在请求执行后遍历这个数组发起请求，如果其中有一个请求返回失败，则认定本组请求失败。    
-    
+
 下面看一个初始化方法:    
-	
+
 ```objectivec
 //YTKBatchRequest.m
 - (instancetype)initWithRequestArray:(NSArray*)requestArray {
     self = [super init];
     if (self) {
- 
+
         //保存为属性
         _requestArray = [requestArray copy];
- 
+
         //批量请求完成的数量初始化为0
         _finishedCount = 0;
- 
+
         //类型检查，所有元素都必须为YTKRequest或的它的子类，否则强制初始化失败
         for (YTKRequest * req in _requestArray) {
             if (![req isKindOfClass:[YTKRequest class]]) {
@@ -1010,24 +1010,24 @@ YTKNetworkConfig 源码也提供了安全策略，url 过滤，缓存路径的�
 }
 ```
 
-初始化以后，我们就可以调用 start 方法来发起当前 YTKBatchRequest 实例所管理的所有请求了。
+初始化以后，我们就可以调用 `start` 方法来发起当前 `YTKBatchRequest` 实例所管理的所有请求了。
 
 ```objectivec
 - (void)start {
- 
+
     //如果batch里第一个请求已经成功结束，则不能再start
     if (_finishedCount > 0) {
         YTKLog(@"Error! Batch request has already started.");
         return;
     }
- 
+
     //最开始设定失败的request为nil
     _failedRequest = nil;
- 
+
     //使用YTKBatchRequestAgent来管理当前的批量请求
     [[YTKBatchRequestAgent sharedAgent] addBatchRequest:self];
     [self toggleAccessoriesWillStartCallBack];
- 
+
     //遍历所有request，并开始请求
     for (YTKRequest * req in _requestArray) {
         req.delegate = self;
@@ -1036,40 +1036,40 @@ YTKNetworkConfig 源码也提供了安全策略，url 过滤，缓存路径的�
     }
 }
 ```
-所以在这里是遍历 YTKBatchRequest 实例的 _requestArray 并逐一发送请求。因为已经封装好了单个的请求，所以在这里直接start就好了。
+所以在这里是遍历 `YTKBatchRequest` 实例的 `_requestArray` 并逐一发送请求。因为已经封装好了单个的请求，所以在这里直接 `start` 就好了。
 
-（1）在请求之后，在每一个请求的回调的代理方法里面，来判断这次请求是否是成功的，也是在 YTKRequest 子类 YTKBatchRequest.m 判断。
+（1）在请求之后，在每一个请求的回调的代理方法里面，来判断这次请求是否是成功的，也是在 `YTKRequest` 子类 `YTKBatchRequest.m` 判断。
 
 ```objectivec
 //YTKBatchRequest.m
 #pragma mark - Network Request Delegate
 - (void)requestFinished:(YTKRequest *)request {
- 
+
     //某个request成功后，首先让_finishedCount + 1
     _finishedCount++;
- 
+
     //如果_finishedCount等于_requestArray的个数，则判定当前batch请求成功
     if (_finishedCount == _requestArray.count) {
- 
+
         //调用即将结束的代理
         [self toggleAccessoriesWillStopCallBack];
- 
+
         //调用请求成功的代理
         if ([_delegate respondsToSelector:@selector(batchRequestFinished:)]) {
             [_delegate batchRequestFinished:self];
         }
- 
+
         //调用批量请求成功的block
         if (_successCompletionBlock) {
             _successCompletionBlock(self);
         }
- 
+
         //清空成功和失败的block
         [self clearCompletionBlock];
- 
+
         //调用请求结束的代理
         [self toggleAccessoriesDidStopCallBack];
- 
+
         //从YTKBatchRequestAgent里移除当前的batch
         [[YTKBatchRequestAgent sharedAgent] removeBatchRequest:self];
     }
@@ -1083,73 +1083,73 @@ YTKNetworkConfig 源码也提供了安全策略，url 过滤，缓存路径的�
 ```objectivec
 //YTKBatchRequest.m
 - (void)requestFailed:(YTKRequest *)request {
- 
+
     _failedRequest = request;
- 
+
     //调用即将结束的代理
     [self toggleAccessoriesWillStopCallBack];
- 
+
     //停止batch里所有的请求
     for (YTKRequest *req in _requestArray) {
         [req stop];
     }
- 
+
     //调用请求失败的代理
     if ([_delegate respondsToSelector:@selector(batchRequestFailed:)]) {
         [_delegate batchRequestFailed:self];
     }
- 
+
     //调用请求失败的block
     if (_failureCompletionBlock) {
         _failureCompletionBlock(self);
     }
- 
+
     //清空成功和失败的block
     [self clearCompletionBlock];
- 
+
     //调用请求结束的代理
     [self toggleAccessoriesDidStopCallBack];
- 
+
     //从YTKBatchRequestAgent里移除当前的batch
     [[YTKBatchRequestAgent sharedAgent] removeBatchRequest:self];
 }
 ```
 
-从上面代码可以看出，如果批量请求里面有一个request失败了，则判定当前批量请求失败。
+从上面代码可以看出，如果批量请求里面有一个 `request` 失败了，则判定当前批量请求失败。
 
 
 
-##### 4.2.7 YTKBatchRequestAgent 
+##### 4.2.7 `YTKBatchRequestAgent`
 
-功能简介：负责管理多个YTKBatchRequest实例，持有一个数组保存YTKBatchRequest。支持添加和删除YTKBatchRequest实例。
+功能简介：负责管理多个 `YTKBatchRequest` 实例，持有一个数组保存 `YTKBatchRequest`。支持添加和删除 `YTKBatchRequest` 实例。
 
-YTKBatchRequestAgent和YTKRequestAgent差不多，只不过是一个和多个区别，没有多少要核心讲的，可以自己看一下YTKBatchRequestAgent的源码，相信都能看懂。
+`YTKBatchRequestAgent` 和 `YTKRequestAgent` 差不多，只不过是一个和多个区别，没有多少要核心讲的，可以自己看一下 `YTKBatchRequestAgent` 的源码，相信都能看懂。
 
 
-##### 4.2.8 YTKChainRequest     
+##### 4.2.8 `YTKChainRequest`     
 
 功能简介：可以发起链式请求，持有一个数组来保存所有的请求类。当某个请求结束后才能发起下一个请求，如果其中有一个请求返回失败，则认定本请求链失败。（链式请求：例如：发送请求 A，根据请求 A 的结果，选择性的发送请求 B 和 C，再根据 B 和 C 的结果，选择性的发送请求 D。）
 
-处理链式请求的类是 YTKChainRequest，利用 YTKChainRequestAgent 单例来管理 YTKChainRequest 实例。
+处理链式请求的类是 `YTKChainRequest`，利用 `YTKChainRequestAgent` 单例来管理 `YTKChainRequest` 实例。
 
 初始化方法:   
-	
+
 ```objectivec
 //YTKChainRequest.m
 - (instancetype)init {
- 
+
     self = [super init];
     if (self) {
- 
+
         //下一个请求的 index
         _nextRequestIndex = 0;
- 
+
         //保存链式请求的数组
         _requestArray = [NSMutableArray array];
- 
+
         //保存回调的数组
         _requestCallbackArray = [NSMutableArray array];
- 
+
         //空回调，用来填充用户没有定义的回调 block
         _emptyCallback = ^(YTKChainRequest *chainRequest, YTKBaseRequest *baseRequest) {
             // do nothing
@@ -1159,15 +1159,15 @@ YTKBatchRequestAgent和YTKRequestAgent差不多，只不过是一个和多个区
 }
 ```
 
-YTKChainRequest 提供了添加和删除 request 的接口。
+`YTKChainRequest` 提供了添加和删除 `request` 的接口。
 
 ```objectivec
-//在当前 chain 添加 request 和 callback
+//在当前 `chain` 添加 `request` 和 `callback`
 - (void)addRequest:(YTKBaseRequest *)request callback:(YTKChainCallback)callback {
- 
+
     //保存当前请求
     [_requestArray addObject:request];
- 
+
     if (callback != nil) {
         [_requestCallbackArray addObject:callback];
     } else {
@@ -1200,32 +1200,32 @@ YTKChainRequest 提供了添加和删除 request 的接口。
 }
 ```
 
-通过查看链式请求的实现，发现链式请求的请求队列是可以变动的，用户可以无限制地添加请求。只要请求队列里面有请求存在，则YTKChainRequest就会继续发送它们。
+通过查看链式请求的实现，发现链式请求的请求队列是可以变动的，用户可以无限制地添加请求。只要请求队列里面有请求存在，则 `YTKChainRequest` 就会继续发送它们。
 
 （2）链式请求的请求和回调
 
-下面是终止方法stop()
+下面是终止方法 `stop()`
 
 ```objectivec
 //YTKChainRequest.m
 //终止当前的chain
 - (void)stop {
- 
+
     //首先调用即将停止的callback
     [self toggleAccessoriesWillStopCallBack];
- 
+
     //然后stop当前的请求，再清空chain里所有的请求和回掉block
     [self clearRequest];
- 
+
     //在YTKChainRequestAgent里移除当前的chain
     [[YTKChainRequestAgent sharedAgent] removeChainRequest:self];
- 
+
     //最后调用已经结束的callback
     [self toggleAccessoriesDidStopCallBack];
 }
 ```
 
-stop方法是可以在外部调用的，所以用户可以随时终止当前链式请求的进行。它首先调用clearReuqest方法，将当前request停止，再将请求队列数组和callback数组清空。
+`stop` 方法是可以在外部调用的，所以用户可以随时终止当前链式请求的进行。它首先调用 `clearReuqest` 方法，将当前 `request` 停止，再将请求队列数组和 `callback` 数组清空。
 
 ```objectivec
 //YTKChainRequest.m
@@ -1241,12 +1241,12 @@ stop方法是可以在外部调用的，所以用户可以随时终止当前链�
 }
 ```
 
-然后在YTKChainRequestAgent单例里面，将自己移除掉。
+然后在 `YTKChainRequestAgent` 单例里面，将自己移除掉。
 
 
-##### 4.2.9 YTKNetworkPrivate 
+##### 4.2.9 `YTKNetworkPrivate`
 
-功能简介：提供JSON验证，appVersion等辅助性的方法；给YTKBaseRequest增加一些分类。
+功能简介：提供 `JSON` 验证，`appVersion` 等辅助性的方法；给 `YTKBaseRequest` 增加一些分类。
 
 
 ### 5.杂谈：包括优缺点、配置方式、维护更新等。
@@ -1257,14 +1257,12 @@ stop方法是可以在外部调用的，所以用户可以随时终止当前链�
 缺点：不适合于在网络请求简单的项目中使用，这样显得没有直接使用原生的网络库使用方便。    
 
 #### 5.2、配置方式：
-将YTKNetwork 库导入工程中无需做任何配置，具体使用详见（1.2）。
+
+将 `YTKNetwork` 库导入工程中无需做任何配置，具体使用详见（1.2）。
+
 #### 5.3 维护更新
-1、CocoaPods 方式：在Podfile 文件中加入一行代码来使用YTKNetwork    
-		
+1、`CocoaPods` 方式：在 `Podfile` 文件中加入一行代码来使用 `YTKNetwork`：    
+
 	pod 'YTKNetwork'
 
-2、非CocoaPods 方式：github官网上下载最新版YTKNetwork库将AFNetworking和YTKnetwork 库抽取出来放到项目中。    
-
-	
-
-
+2、非 `CocoaPods` 方式：`GitHub` 官网上下载最新版 `YTKNetwork` 库将 `AFNetworking` 和 `YTKNetwork` 库抽取出来放到项目中。    
